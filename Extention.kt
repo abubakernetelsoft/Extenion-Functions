@@ -200,3 +200,23 @@ fun String?.isNullOrEmpty(): Boolean {
 }
 
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
+
+fun increaseFontSizeForPath(spannable: Spannable, path: String, increaseTime: Float) {
+    val startIndexOfPath = spannable.toString().indexOf(path)
+    spannable.setSpan(RelativeSizeSpan(increaseTime), startIndexOfPath,
+        startIndexOfPath + path.length, 0)
+}
+
+fun reduceTextSizeAfterChar(text: String, afterChar: Char, reduceBy: Float): SpannableStringBuilder? {
+    val smallSizeText = RelativeSizeSpan(reduceBy)
+    val ssBuilder = SpannableStringBuilder(text)
+    ssBuilder.setSpan(
+        smallSizeText,
+        text.indexOf(afterChar),
+        text.length,
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    return ssBuilder
+}
+
+fun String.appendString(append: () -> Any) = this + append()
