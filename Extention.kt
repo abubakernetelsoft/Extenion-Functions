@@ -237,17 +237,11 @@ fun Int.formatDecimalSeparatorWithSign(sign : String): String {
 }
 
 fun passwordValidator(password : String) : String{
-    if (password.isEmpty()){
-        return "Please Enter Password"
-    }
-    if (password.length<8){
-        return "Password length must be 8"
-    }
-    if (!password.any {it.isUpperCase()}) {
-        return "Password must contain 1 upper alphabet"
-    }
-    if (!password.any {it.isDigit()}) {
-        return "Password must contain digit"
-    }
+    if (password.isEmpty()) return "Please Enter Password"
+    if (!password.contains("[a-zA-Z]".toRegex())) return "Password must contain alphabet"
+    if (!password.any {it.isUpperCase()}) return "Password must contain 1 capital letter"
+    if (!password.contains("[!\"#$%&'()*+,-./:;\\\\<=>?@\\[\\]^_`{|}~]".toRegex())) return "Password must contain special character"
+    if (!password.any {it.isDigit()}) return "Password must contain number"
+    if (password.length<8) return "Password length must be 8"
     return "Validate password"
 }
