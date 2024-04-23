@@ -220,3 +220,34 @@ fun reduceTextSizeAfterChar(text: String, afterChar: Char, reduceBy: Float): Spa
 }
 
 fun String.appendString(append: () -> Any) = this + append()
+
+fun Int.formatDecimalSeparator(): String {
+    val amount =toString().reversed().chunked(3).joinToString(",").reversed()
+    return "Rs. $amount"
+}
+
+fun Int.formatDecimalSeparatorWithoutRs(): String {
+    val amount =toString().reversed().chunked(3).joinToString(",").reversed()
+    return amount
+}
+
+fun Int.formatDecimalSeparatorWithSign(sign : String): String {
+    val amount =toString().reversed().chunked(3).joinToString(",").reversed()
+    return "Rs. $sign$amount"
+}
+
+fun passwordValidator(password : String) : String{
+    if (password.isEmpty()){
+        return "Please Enter Password"
+    }
+    if (password.length<8){
+        return "Password length must be 8"
+    }
+    if (!password.any {it.isUpperCase()}) {
+        return "Password must contain 1 upper alphabet"
+    }
+    if (!password.any {it.isDigit()}) {
+        return "Password must contain digit"
+    }
+    return "Validate password"
+}
